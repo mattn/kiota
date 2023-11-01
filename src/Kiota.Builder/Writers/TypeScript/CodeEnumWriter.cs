@@ -16,12 +16,13 @@ public class CodeEnumWriter : BaseElementWriter<CodeEnum, TypeScriptConventionSe
             return;
 
         conventions.WriteLongDescription(codeElement, writer);
-        writer.WriteLine($"export enum {codeElement.Name.ToFirstCharacterUpperCase()} {{");
+        var enumConstName = TypeScriptConventionService.GetEnumTypeConstName(codeElement.Name.ToFirstCharacterUpperCase());
+        writer.WriteLine($"const {enumConstName} = {{");
         writer.IncreaseIndent();
         codeElement.Options.ToList().ForEach(x =>
         {
             conventions.WriteShortDescription(x.Documentation.Description, writer);
-            writer.WriteLine($"{x.Name.ToFirstCharacterUpperCase()} = \"{x.WireName}\",");
+            writer.WriteLine($"{x.Name.ToFirstCharacterUpperCase()}: \"{x.WireName}\",");
         });
     }
 }

@@ -39,7 +39,7 @@ public class CodeEnumWriterTests : IDisposable
         currentEnum.AddOption(new CodeEnumOption { Name = optionName });
         writer.Write(currentEnum);
         var result = tw.ToString();
-        Assert.Contains("export enum", result);
+        Assert.Contains("const", result);
         Assert.Contains(optionName, result);
         AssertExtensions.CurlyBracesAreClosed(result, 1);
     }
